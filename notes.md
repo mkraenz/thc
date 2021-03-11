@@ -44,3 +44,16 @@ hydra -v -V -l admin@juice-sh.op -P /usr/share/wordlists/rockyou.txt 10.10.114.5
 gpg --import private.key
 gpg --decrypt encrypted.file > plain.txt
 ```
+
+## Hash cracking
+
+```bash
+wget https://gitlab.com/kalilinux/packages/hash-identifier/-/raw/kali/master/hash-id.py
+python3 hash-id.py < HASH_FILE
+
+gzip -d /usr/share/wordlists/rockyou.txt.gz
+# Note: standard hash types might have prefix `raw-` e.g. format=raw-md5
+sudo john --wordlist=/usr/share/wordlists/rockyou.txt --format=FORMAT HASH_FILE
+
+john --list=formats | grep -i md5
+```

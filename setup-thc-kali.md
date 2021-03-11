@@ -1,12 +1,14 @@
 # Setup for THC Kali
 
-## aliases
+## aliases and default setups
 
 ```bash
 alias ..='cd ..'
 alias ~='cd ~'
 alias r='cd /'
 
+gzip -d /usr/share/wordlists/rockyou.txt.gz
+alias johnrock='sudo john --wordlist=/usr/share/wordlists/rockyou.txt'
 ```
 
 ## one-time
@@ -30,10 +32,6 @@ code
 ### Seclists
 
 `sudo apt update && sudo apt install seclists`
-
-### Unzip wordlist `rockyou.txt`
-
-`gzip -d /usr/share/wordlists/rockyou.txt.gz`
 
 ### Feroxbuster
 
