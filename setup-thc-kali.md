@@ -29,6 +29,14 @@ alias code="/snap/bin/code --user-data-dir ~/vs-code-user-data"
 code
 ```
 
+### XClip
+
+```bash
+sudo apt install xclip
+source /usr/bin/xclip
+alias xclip='xclip -selection clipboard'
+```
+
 ### Seclists
 
 `sudo apt update && sudo apt install seclists`
