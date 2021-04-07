@@ -63,6 +63,8 @@ john --list=formats | grep -i md5
 - [spawning a TTY shell in many languages](https://netsec.ws/?p=337)
 - [unix binaries to bypass security](https://gtfobins.github.io/#+sudo)
 - [file endings in linux](https://lauraliparulo.altervista.org/most-common-linux-file-extensions/)
+- [pentestlab.blog privesc](https://pentestlab.blog/category/privilege-escalation/)
+- [gtfobins](https://gtfobins.github.io/#)
 
 ## Recon + Privilege Escalation
 

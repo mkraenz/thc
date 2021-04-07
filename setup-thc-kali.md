@@ -6,9 +6,10 @@
 alias ..='cd ..'
 alias ~='cd ~'
 alias r='cd /'
-
-gzip -d /usr/share/wordlists/rockyou.txt.gz
 alias johnrock='sudo john --wordlist=/usr/share/wordlists/rockyou.txt'
+alias www='python3 -m http.server'
+alias o='xdg-open .'
+# gunzip /usr/share/wordlists/rockyou.txt.gz
 ```
 
 ## one-time
